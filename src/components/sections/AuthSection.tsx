@@ -162,21 +162,6 @@ export const AuthSection = () => {
               </p>
             </div>
 
-            {/* Admin Login Note */}
-            {isLogin && (
-              <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Shield className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium text-card-foreground">Admin Access</span>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Email: mynulhossainrafi@gmail.com
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Password: deshi@admin
-                </p>
-              </div>
-            )}
           </Card>
         </div>
       </div>
