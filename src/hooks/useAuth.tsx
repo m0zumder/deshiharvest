@@ -7,8 +7,8 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, fullName: string, role: "farmer" | "retailer") => Promise<{ error: any }>;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signUp: (phone: string, password: string, fullName: string, role: "farmer" | "retailer") => Promise<{ error: any }>;
+  signIn: (phone: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   userProfile: any;
   refreshProfile: () => Promise<void>;
@@ -72,18 +72,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string, fullName: string, role: "farmer" | "retailer") => {
+  const signUp = async (phone: string, password: string, fullName: string, role: "farmer" | "retailer") => {
     try {
       const redirectUrl = `${window.location.origin}/`;
       
       const { data, error } = await supabase.auth.signUp({
-        email,
+        phone,
         password,
         options: {
-          emailRedirectTo: redirectUrl,
           data: {
             full_name: fullName,
-            role: role
+            role: role,
+            phone: phone
           }
         }
       });
@@ -104,7 +104,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           .insert({
             user_id: data.user.id,
             full_name: fullName,
-            role: role
+            role: role,
+            phone: phone
           });
 
         if (profileError) {
@@ -128,10 +129,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (phone: string, password: string) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
-        email,
+        phone,
         password,
       });
 
