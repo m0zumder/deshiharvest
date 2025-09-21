@@ -26,18 +26,24 @@ export const HeroSection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
+                asChild
                 size="lg" 
                 className="bg-accent hover:bg-accent-hover text-accent-foreground shadow-accent transition-all duration-300 hover:scale-105"
               >
-                Start Shopping
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <a href="/products">
+                  Start Shopping
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
               </Button>
               <Button 
+                asChild
                 size="lg" 
                 variant="outline" 
                 className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
               >
-                Join as Farmer
+                <a href="/auth">
+                  Join as Farmer (কৃষক)
+                </a>
               </Button>
             </div>
 

@@ -14,7 +14,7 @@ import { Sprout } from "lucide-react";
 export default function Auth() {
   const { user, loading, signUp, signIn } = useAuth();
   const { t } = useLanguage();
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [role, setRole] = useState<"farmer" | "retailer">("farmer");
@@ -35,14 +35,14 @@ export default function Auth() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await signUp(email, password, fullName, role);
+    await signUp(phone, password, fullName, role);
     setIsLoading(false);
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await signIn(email, password);
+    await signIn(phone, password);
     setIsLoading(false);
   };
 
@@ -95,16 +95,16 @@ export default function Auth() {
                 <TabsContent value="signin" className="space-y-4">
                   <form onSubmit={handleSignIn} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="signin-email">
-                        {t("Email", "ইমেইল")}
+                      <Label htmlFor="signin-phone">
+                        {t("Phone Number", "ফোন নম্বর")}
                       </Label>
                       <Input
-                        id="signin-email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        id="signin-phone"
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         required
-                        placeholder={t("Enter your email", "আপনার ইমেইল লিখুন")}
+                        placeholder={t("Enter your phone number", "আপনার ফোন নম্বর লিখুন")}
                       />
                     </div>
                     <div className="space-y-2">
@@ -142,16 +142,16 @@ export default function Auth() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-email">
-                        {t("Email", "ইমেইল")}
+                      <Label htmlFor="signup-phone">
+                        {t("Phone Number", "ফোন নম্বর")}
                       </Label>
                       <Input
-                        id="signup-email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        id="signup-phone"
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         required
-                        placeholder={t("Enter your email", "আপনার ইমেইল লিখুন")}
+                        placeholder={t("Enter your phone number", "আপনার ফোন নম্বর লিখুন")}
                       />
                     </div>
                     <div className="space-y-2">

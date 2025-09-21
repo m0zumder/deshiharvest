@@ -17,6 +17,7 @@ export const Header = () => {
   const { user, userProfile, signOut } = useAuth();
   
   const navigation = [
+    { name: t("Home", "হোম"), href: "/home" },
     { name: t("Products", "পণ্য"), href: "/products" },
     { name: t("Dashboard", "ড্যাশবোর্ড"), href: "/dashboard" },
   ];
