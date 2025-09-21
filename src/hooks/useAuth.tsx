@@ -74,10 +74,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signUp = async (phone: string, password: string, fullName: string, role: "farmer" | "retailer") => {
     try {
-      const redirectUrl = `${window.location.origin}/`;
+      // Convert phone to email format for compatibility with Supabase
+      const emailFromPhone = `${phone.replace(/[^0-9]/g, '')}@deshiharvest.local`;
       
       const { data, error } = await supabase.auth.signUp({
-        phone,
+        email: emailFromPhone,
         password,
         options: {
           data: {
@@ -131,8 +132,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (phone: string, password: string) => {
     try {
+      // Convert phone to email format for compatibility
+      const emailFromPhone = `${phone.replace(/[^0-9]/g, '')}@deshiharvest.local`;
+      
       const { error } = await supabase.auth.signInWithPassword({
-        phone,
+        email: emailFromPhone,
         password,
       });
 

@@ -8,7 +8,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import Products from "./pages/Products";
+import ProductList from "./pages/ProductList";
 import Auth from "./pages/Auth";
 import Support from "./pages/Support";
 import Help from "./pages/Help";
@@ -33,7 +33,7 @@ const App = () => (
               <Route path="/home" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/products" element={<Products />} />
+              <Route path="/products" element={<ProductList />} />
               <Route path="/support" element={<Support />} />
               <Route path="/help" element={<Help />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
