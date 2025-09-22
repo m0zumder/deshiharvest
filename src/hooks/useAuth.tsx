@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { getCurrentUserProfile } from "@/utils/profileUtils";
 
 interface AuthContextType {
   user: User | null;
@@ -27,17 +28,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!user) return;
     
     try {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", user.id)
-        .single();
-      
-      if (error && error.code !== "PGRST116") {
-        console.error("Error fetching profile:", error);
-      } else {
-        setUserProfile(data);
-      }
+      // Use secure profile utility that only fetches user's own complete profile
+      const profile = await getCurrentUserProfile();
+      setUserProfile(profile);
     } catch (error) {
       console.error("Error refreshing profile:", error);
     }

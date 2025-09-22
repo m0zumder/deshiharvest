@@ -489,6 +489,17 @@ export type Database = {
         Args: { product_category: string; product_unit: string }
         Returns: number
       }
+      get_public_profile_info: {
+        Args: { profile_user_id: string }
+        Returns: {
+          business_name: string
+          full_name: string
+          id: string
+          location: string
+          role: Database["public"]["Enums"]["user_role"]
+          user_id: string
+        }[]
+      }
     }
     Enums: {
       user_role: "farmer" | "retailer" | "admin"
