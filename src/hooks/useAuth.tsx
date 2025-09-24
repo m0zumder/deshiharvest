@@ -67,8 +67,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signUp = async (phone: string, password: string, fullName: string, role: "farmer" | "retailer") => {
     try {
-      // Convert phone to email format for compatibility with Supabase
-      const emailFromPhone = `${phone.replace(/[^0-9]/g, '')}@deshiharvest.local`;
+      // Convert phone to a valid email format for Supabase compatibility
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      const emailFromPhone = `user${cleanPhone}@deshiharvest.app`;
       
       const { data, error } = await supabase.auth.signUp({
         email: emailFromPhone,
@@ -78,7 +79,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             full_name: fullName,
             role: role,
             phone: phone
-          }
+          },
+          emailRedirectTo: `${window.location.origin}/dashboard`
         }
       });
 
@@ -89,22 +91,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           variant: "destructive",
         });
         return { error };
-      }
-
-      // Create profile after successful signup
-      if (data.user) {
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .insert({
-            user_id: data.user.id,
-            full_name: fullName,
-            role: role,
-            phone: phone
-          });
-
-        if (profileError) {
-          console.error("Profile creation error:", profileError);
-        }
       }
 
       toast({
@@ -125,8 +111,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (phone: string, password: string) => {
     try {
-      // Convert phone to email format for compatibility
-      const emailFromPhone = `${phone.replace(/[^0-9]/g, '')}@deshiharvest.local`;
+      // Convert phone to the same email format used in signUp
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      const emailFromPhone = `user${cleanPhone}@deshiharvest.app`;
       
       const { error } = await supabase.auth.signInWithPassword({
         email: emailFromPhone,
